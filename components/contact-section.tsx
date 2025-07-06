@@ -1,40 +1,54 @@
 "use client"
 
+import type React from "react"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Mail, Phone, MapPin, Send, ExternalLink, Terminal, CheckCircle, AlertCircle } from "lucide-react"
 import Link from "next/link"
-import { useState } from "react"
-import { submitContactForm } from "@/app/actions/contact"
+import { useState, useRef } from "react"
+import emailjs from "@emailjs/browser"
 
 export default function ContactSection() {
+  const form = useRef<HTMLFormElement>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<{
     type: "success" | "error" | null
     message: string
   }>({ type: null, message: "" })
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!form.current) return
+
     setIsSubmitting(true)
     setSubmitStatus({ type: null, message: "" })
 
     try {
-      const result = await submitContactForm(formData)
+      // Replace these with your actual EmailJS credentials
+      const result = await emailjs.sendForm(
+        "YOUR_SERVICE_ID", // Replace with your EmailJS service ID
+        "YOUR_TEMPLATE_ID", // Replace with your EmailJS template ID
+        form.current,
+        "YOUR_PUBLIC_KEY", // Replace with your EmailJS public key
+      )
+
+      console.log("Email sent successfully:", result.text)
 
       setSubmitStatus({
-        type: result.success ? "success" : "error",
-        message: result.message,
+        type: "success",
+        message: "// Message sent successfully! I'll get back to you soon.",
       })
 
-      // Reset form if successful
-      if (result.success) {
-        const form = document.getElementById("contact-form") as HTMLFormElement
-        form?.reset()
-      }
+      // Reset form
+      form.current.reset()
     } catch (error) {
+      console.error("Email sending failed:", error)
+
       setSubmitStatus({
         type: "error",
-        message: "An unexpected error occurred. Please try again.",
+        message: "// Error: Failed to send message. Please try again.",
       })
     } finally {
       setIsSubmitting(false)
@@ -141,13 +155,13 @@ export default function ContactSection() {
                 </div>
               )}
 
-              <form id="contact-form" action={handleSubmit} className="space-y-6">
+              <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2 font-mono">name</label>
                     <input
                       type="text"
-                      name="name"
+                      name="from_name"
                       required
                       className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors backdrop-blur-sm font-mono"
                       placeholder="your_name"
@@ -157,7 +171,7 @@ export default function ContactSection() {
                     <label className="block text-sm font-medium text-gray-300 mb-2 font-mono">email</label>
                     <input
                       type="email"
-                      name="email"
+                      name="from_email"
                       required
                       className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors backdrop-blur-sm font-mono"
                       placeholder="your@email.com"

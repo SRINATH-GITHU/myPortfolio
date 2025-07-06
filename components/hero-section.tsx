@@ -28,13 +28,13 @@ export default function HeroSection() {
             {/* Name with stunning typography */}
             <div className="space-y-6">
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent leading-tight font-mono">
-                Srinath 
+                Srinath Patil
               </h1>
 
               <div className="flex items-center justify-center gap-3 text-lg md:text-xl text-gray-300 flex-wrap">
                 <div className="flex items-center gap-2">
                   <Code className="w-5 h-5 text-blue-400" />
-                  <span className="font-mono">Full Stack Developer</span>
+                  <span className="font-mono">Full </span>
                 </div>
                 <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
                 <div className="flex items-center gap-2">

@@ -34,7 +34,7 @@ export default function HeroSection() {
               <div className="flex items-center justify-center gap-3 text-lg md:text-xl text-gray-300 flex-wrap">
                 <div className="flex items-center gap-2">
                   <Code className="w-5 h-5 text-blue-400" />
-                  <span className="font-mono">Full </span>
+                  <span className="font-mono">Full Stack Developer</span>
                 </div>
                 <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
                 <div className="flex items-center gap-2">

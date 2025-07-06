@@ -1,6 +1,6 @@
 "use server"
 
-import { sendContactEmail, type ContactFormData } from "@/lib/email"
+import { sendContactEmail, type ContactFormData } from "@/lib/emailjs-config"
 
 export async function submitContactForm(formData: FormData) {
   try {

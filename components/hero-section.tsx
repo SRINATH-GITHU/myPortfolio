@@ -28,7 +28,7 @@ export default function HeroSection() {
             {/* Name with stunning typography */}
             <div className="space-y-6">
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent leading-tight font-mono">
-                Srinath Patil
+                Srinath 
               </h1>
 
               <div className="flex items-center justify-center gap-3 text-lg md:text-xl text-gray-300 flex-wrap">
